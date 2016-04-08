@@ -1,5 +1,8 @@
 package eu.ownyourdata.sam.web.rest.dto;
 
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import javax.persistence.Lob;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -16,10 +19,8 @@ public class PluginDTO implements Serializable {
     @NotNull
     private String identifier;
 
-
     @NotNull
     private String version;
-
 
     @NotNull
     private Integer versionNumber;
@@ -28,8 +29,10 @@ public class PluginDTO implements Serializable {
 
     @NotNull
     @Lob
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private byte[] zip;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String zipContentType;
 
     private Integer downloads;
@@ -76,6 +79,7 @@ public class PluginDTO implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
+
     public byte[] getZip() {
         return zip;
     }
@@ -91,6 +95,7 @@ public class PluginDTO implements Serializable {
     public void setZipContentType(String zipContentType) {
         this.zipContentType = zipContentType;
     }
+
     public Integer getDownloads() {
         return downloads;
     }

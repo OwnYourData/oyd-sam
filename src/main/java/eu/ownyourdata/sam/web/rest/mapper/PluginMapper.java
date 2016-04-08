@@ -16,6 +16,8 @@ public interface PluginMapper {
 
     @Mapping(source = "uploadedBy.id", target = "uploadedById")
     @Mapping(target = "uploadedByName", ignore = true) //provided by PluginMapperDecorator
+    @Mapping(target = "zip", ignore=true) //provided by PluginMapperDecorator
+    @Mapping(target = "zipContentType" , ignore=true) //provided by PluginMapperDecorator
     PluginDTO pluginToPluginDTO(Plugin plugin);
 
     @Mapping(source = "uploadedById", target = "uploadedBy")

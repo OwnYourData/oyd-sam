@@ -11,6 +11,8 @@ import eu.ownyourdata.sam.web.rest.mapper.PluginMapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import static org.hamcrest.Matchers.emptyArray;
 import static org.hamcrest.Matchers.hasItem;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.IntegrationTest;
@@ -22,6 +24,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.ResultHandler;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Base64Utils;
@@ -122,6 +126,8 @@ public class PluginResourceIntTest {
 
         // Create the Plugin
         PluginDTO pluginDTO = pluginMapper.pluginToPluginDTO(plugin);
+        pluginDTO.setZip(plugin.getZip());
+        pluginDTO.setZipContentType(plugin.getZipContentType());
 
         restPluginMockMvc.perform(post("/api/plugins")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -233,8 +239,8 @@ public class PluginResourceIntTest {
             .andExpect(jsonPath("$.[*].version").value(hasItem(DEFAULT_VERSION.toString())))
             .andExpect(jsonPath("$.[*].versionNumber").value(hasItem(DEFAULT_VERSION_NUMBER)))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
-            .andExpect(jsonPath("$.[*].zipContentType").value(hasItem(DEFAULT_ZIP_CONTENT_TYPE)))
-            .andExpect(jsonPath("$.[*].zip").value(hasItem(Base64Utils.encodeToString(DEFAULT_ZIP))))
+            .andExpect(jsonPath("$.[*].zipContentType").doesNotExist())
+            .andExpect(jsonPath("$.[*].zip").doesNotExist())
             .andExpect(jsonPath("$.[*].downloads").value(hasItem(DEFAULT_DOWNLOADS)))
             .andExpect(jsonPath("$.[*].ratings").value(hasItem(DEFAULT_RATINGS.doubleValue())))
             .andExpect(jsonPath("$.[*].uploadedBy.resetKey").doesNotExist())
@@ -259,8 +265,8 @@ public class PluginResourceIntTest {
             .andExpect(jsonPath("$.version").value(DEFAULT_VERSION.toString()))
             .andExpect(jsonPath("$.versionNumber").value(DEFAULT_VERSION_NUMBER))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
-            .andExpect(jsonPath("$.zipContentType").value(DEFAULT_ZIP_CONTENT_TYPE))
-            .andExpect(jsonPath("$.zip").value(Base64Utils.encodeToString(DEFAULT_ZIP)))
+            .andExpect(jsonPath("$.zipContentType").doesNotExist())
+            .andExpect(jsonPath("$.zip").doesNotExist())
             .andExpect(jsonPath("$.downloads").value(DEFAULT_DOWNLOADS))
             .andExpect(jsonPath("$.ratings").value(DEFAULT_RATINGS.doubleValue()))
             .andExpect(jsonPath("$.uploadedBy.resetKey").doesNotExist())
@@ -296,6 +302,8 @@ public class PluginResourceIntTest {
         plugin.setDownloads(UPDATED_DOWNLOADS);
         plugin.setRatings(UPDATED_RATINGS);
         PluginDTO pluginDTO = pluginMapper.pluginToPluginDTO(plugin);
+        pluginDTO.setZip(plugin.getZip());
+        pluginDTO.setZipContentType(plugin.getZipContentType());
 
         restPluginMockMvc.perform(put("/api/plugins")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)

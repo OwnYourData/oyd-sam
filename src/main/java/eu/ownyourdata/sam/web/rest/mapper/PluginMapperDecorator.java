@@ -18,6 +18,8 @@ public abstract class PluginMapperDecorator implements PluginMapper {
     public PluginDTO pluginToPluginDTO(Plugin plugin) {
         PluginDTO pluginDTO = delegate.pluginToPluginDTO(plugin);
         if (pluginDTO != null) {
+            pluginDTO.setZip(null);
+            pluginDTO.setZipContentType(null);
             pluginDTO.setUploadedByName(plugin.getUploadedBy().getFirstName() + " " + plugin.getUploadedBy().getLastName());
         }
         return pluginDTO;
