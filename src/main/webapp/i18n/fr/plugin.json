@@ -1,0 +1,30 @@
+{
+    "samApp": {
+        "plugin" : {
+            "home": {
+                "title": "Plugins",
+                "createLabel": "Créer un nouveau Plugin",
+                "createOrEditLabel": "Créer ou éditer un Plugin",
+                "search": "Search for Plugin"
+            },
+            "created": "Un nouveau Plugin a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Plugin avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Plugin avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Plugin {{ id }} ?"
+            },
+            "detail": {
+                "title": "Plugin"
+            },
+            "identifier": "Identifier",
+            "version": "Version",
+            "versionNumber": "VersionNumber",
+            "description": "Description",
+            "zip": "Zip",
+            "downloads": "Downloads",
+            "ratings": "Ratings",
+            "uploadedBy": "UploadedBy"
+        }
+    }
+}
+

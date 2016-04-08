@@ -1,0 +1,84 @@
+<div>
+    <h2 translate="samApp.plugin.home.title">Plugins</h2>
+    <jh-alert></jh-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="plugin.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span 
+class="hidden-xs"                        translate="samApp.plugin.home.createLabel">Create new Plugin
+                    </span>
+                </button>
+            </div>
+            <div class="col-xs-8 no-padding-right">
+                <form name="searchForm" class="form-inline">
+                    <div class="input-group pull-right" >
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="{{ 'samApp.plugin.home.search' | translate }}">
+                        <span  class="input-group-btn width-min" >
+                            <button class="btn btn-info" ng-click="search()">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr jh-sort="predicate" ascending="reverse" callback="reset()">
+                    <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="identifier"><span translate="samApp.plugin.identifier">Identifier</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="version"><span translate="samApp.plugin.version">Version</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="versionNumber"><span translate="samApp.plugin.versionNumber">VersionNumber</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="description"><span translate="samApp.plugin.description">Description</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="zip"><span translate="samApp.plugin.zip">Zip</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="downloads"><span translate="samApp.plugin.downloads">Downloads</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="ratings"><span translate="samApp.plugin.ratings">Ratings</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="uploadedByLogin"><span translate="samApp.plugin.uploadedBy">uploadedBy</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody infinite-scroll="loadPage(page + 1)" infinite-scroll-disabled="links['last'] == page">
+                <tr ng-repeat="plugin in plugins track by plugin.id">
+                    <td><a ui-sref="plugin.detail({id:plugin.id})">{{plugin.id}}</a></td>
+                    <td>{{plugin.identifier}}</td>
+                    <td>{{plugin.version}}</td>
+                    <td>{{plugin.versionNumber}}</td>
+                    <td>{{plugin.description}}</td>
+                    <td>{{abbreviate(plugin.zip)}} {{plugin.zipContentType}} {{byteSize(plugin.zip)}}</td>
+                    <td>{{plugin.downloads}}</td>
+                    <td>{{plugin.ratings}}</td>
+                    <td>
+                        {{plugin.uploadedByLogin}}
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="plugin.detail({id:plugin.id})"
+                                    class="btn btn-info btn-sm"> 
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-xs hidden-sm" translate="entity.action.view"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="plugin.edit({id:plugin.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-xs hidden-sm" translate="entity.action.edit"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="plugin.delete({id:plugin.id})"
+                                    class="btn btn-danger btn-sm">                                    
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-xs hidden-sm" translate="entity.action.delete"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
