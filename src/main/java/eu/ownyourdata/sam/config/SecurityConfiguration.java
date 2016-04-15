@@ -2,6 +2,7 @@ package eu.ownyourdata.sam.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -63,6 +64,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
                 .requestMatchers().antMatchers("/oauth/authorize")
+            .and()
+                .authorizeRequests()
+                .antMatchers(HttpMethod.GET,"/api/plugins")
+                .anonymous()
             .and()
                 .authorizeRequests()
                 .antMatchers("/oauth/authorize").authenticated();

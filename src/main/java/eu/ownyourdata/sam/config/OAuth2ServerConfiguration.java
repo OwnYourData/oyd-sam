@@ -57,6 +57,7 @@ public class OAuth2ServerConfiguration {
             .and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                .antMatchers(HttpMethod.GET,"/api/plugins").anonymous()
                 .antMatchers("/api/authenticate").permitAll()
                 .antMatchers("/api/register").permitAll()
                 .antMatchers("/api/logs/**").hasAnyAuthority(AuthoritiesConstants.ADMIN)
