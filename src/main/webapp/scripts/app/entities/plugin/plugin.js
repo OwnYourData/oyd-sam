@@ -47,39 +47,6 @@ angular.module('samApp')
                     }]
                 }
             })
-            .state('plugin.new', {
-                parent: 'plugin',
-                url: '/new',
-                data: {
-                    authorities: ['ROLE_USER'],
-                },
-                onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
-                    $uibModal.open({
-                        templateUrl: 'scripts/app/entities/plugin/plugin-dialog.html',
-                        controller: 'PluginDialogController',
-                        size: 'lg',
-                        resolve: {
-                            entity: function () {
-                                return {
-                                    identifier: null,
-                                    version: null,
-                                    versionNumber: null,
-                                    description: null,
-                                    zip: null,
-                                    zipContentType: null,
-                                    downloads: null,
-                                    ratings: null,
-                                    id: null
-                                };
-                            }
-                        }
-                    }).result.then(function(result) {
-                        $state.go('plugin', null, { reload: true });
-                    }, function() {
-                        $state.go('plugin');
-                    })
-                }]
-            })
             .state('plugin.upload', {
                 parent: 'plugin',
                 url: '/upload',
@@ -103,29 +70,6 @@ angular.module('samApp')
                         $state.go('plugin', null, { reload: true });
                     }, function() {
                         $state.go('plugin');
-                    })
-                }]
-            })
-            .state('plugin.edit', {
-                parent: 'plugin',
-                url: '/{id}/edit',
-                data: {
-                    authorities: ['ROLE_USER'],
-                },
-                onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
-                    $uibModal.open({
-                        templateUrl: 'scripts/app/entities/plugin/plugin-dialog.html',
-                        controller: 'PluginDialogController',
-                        size: 'lg',
-                        resolve: {
-                            entity: ['Plugin', function(Plugin) {
-                                return Plugin.get({id : $stateParams.id});
-                            }]
-                        }
-                    }).result.then(function(result) {
-                        $state.go('plugin', null, { reload: true });
-                    }, function() {
-                        $state.go('^');
                     })
                 }]
             })

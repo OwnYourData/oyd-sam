@@ -20,7 +20,7 @@ public abstract class PluginMapperDecorator implements PluginMapper {
         if (pluginDTO != null) {
             pluginDTO.setZip(null);
             pluginDTO.setZipContentType(null);
-            pluginDTO.setUploadedByName(plugin.getUploadedBy().getFirstName() + " " + plugin.getUploadedBy().getLastName());
+            pluginDTO.setUploadedByName(plugin.getUploadedBy().getLogin());
         }
         return pluginDTO;
     }
