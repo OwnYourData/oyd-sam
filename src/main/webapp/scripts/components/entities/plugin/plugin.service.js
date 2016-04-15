@@ -11,6 +11,7 @@ angular.module('samApp')
                     return data;
                 }
             },
-            'update': { method:'PUT' }
+            'update': { method:'PUT' },
+            'upload': { method:'POST',url: 'api/plugins/upload'}
         });
     });

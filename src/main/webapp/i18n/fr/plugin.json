@@ -1,6 +1,11 @@
 {
     "samApp": {
         "plugin" : {
+            "upload" : {
+                "title": "Plugins",
+                "uploadLabel":"Upload Plugin",
+                "uploadSelect":"Choose File"
+            },
             "home": {
                 "title": "Plugins",
                 "createLabel": "Créer un nouveau Plugin",

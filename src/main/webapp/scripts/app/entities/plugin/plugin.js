@@ -80,6 +80,32 @@ angular.module('samApp')
                     })
                 }]
             })
+            .state('plugin.upload', {
+                parent: 'plugin',
+                url: '/upload',
+                data: {
+                    authorities: ['ROLE_USER'],
+                },
+                onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
+                    $uibModal.open({
+                        templateUrl: 'scripts/app/entities/plugin/plugin-upload-dialog.html',
+                        controller: 'PluginUploadDialogController',
+                        size: 'lg',
+                        resolve: {
+                            entity: function () {
+                                return {
+                                    zip: null,
+                                    zipContentType: null,
+                                };
+                            }
+                        }
+                    }).result.then(function(result) {
+                        $state.go('plugin', null, { reload: true });
+                    }, function() {
+                        $state.go('plugin');
+                    })
+                }]
+            })
             .state('plugin.edit', {
                 parent: 'plugin',
                 url: '/{id}/edit',

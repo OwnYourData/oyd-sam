@@ -1,11 +1,10 @@
 package eu.ownyourdata.sam.repository;
 
 import eu.ownyourdata.sam.domain.User;
-
-import java.time.ZonedDateTime;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,6 +24,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findOneByLogin(String login);
 
     Optional<User> findOneById(Long userId);
+
+    @Query("select user from User user where user.login = ?#{principal.username}")
+    Optional<User> findCurrentUser();
 
     @Override
     void delete(User t);
