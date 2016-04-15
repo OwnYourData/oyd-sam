@@ -25,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -148,6 +149,28 @@ public class PluginResource {
                 result,
                 HttpStatus.OK))
             .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    /**
+     * GET  /plugins/:id -> get the "id" plugin.
+     */
+    @RequestMapping(value = "/plugins/{id}/download",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    @Transactional
+    public void getPlugin(@PathVariable Long id, HttpServletResponse response) {
+        Plugin plugin = pluginRepository.findOne(id);
+        response.setContentType(plugin.getZipContentType());
+
+        try {
+            IOUtils.write(plugin.getZip(), response.getOutputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        plugin.setDownloads(plugin.getDownloads() + 1);
+        pluginRepository.save(plugin);
     }
 
     /**

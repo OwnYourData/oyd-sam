@@ -70,6 +70,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .anonymous()
             .and()
                 .authorizeRequests()
+                .antMatchers(HttpMethod.GET,"/api/plugins/*/download")
+                .anonymous()
+            .and()
+                .authorizeRequests()
                 .antMatchers("/oauth/authorize").authenticated();
     }
 
