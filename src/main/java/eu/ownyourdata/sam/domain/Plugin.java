@@ -34,6 +34,12 @@ public class Plugin implements Serializable {
     @Column(name = "version_number", nullable = false)
     private Integer versionNumber;
 
+    @Column(name = "requires")
+    private String requires;
+
+    @Column(name = "permissions")
+    private String permissions;
+
     @Column(name = "description")
     private String description;
 
@@ -131,6 +137,22 @@ public class Plugin implements Serializable {
 
     public void setUploadedBy(User user) {
         this.uploadedBy = user;
+    }
+
+    public String getRequires() {
+        return requires;
+    }
+
+    public void setRequires(String requires) {
+        this.requires = requires;
+    }
+
+    public String getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(String permissions) {
+        this.permissions = permissions;
     }
 
     @Override
