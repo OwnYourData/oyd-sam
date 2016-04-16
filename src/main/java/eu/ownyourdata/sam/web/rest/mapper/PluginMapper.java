@@ -3,6 +3,7 @@ package eu.ownyourdata.sam.web.rest.mapper;
 import eu.ownyourdata.sam.domain.Plugin;
 import eu.ownyourdata.sam.domain.User;
 import eu.ownyourdata.sam.web.rest.dto.PluginDTO;
+import org.json.JSONArray;
 import org.mapstruct.DecoratedWith;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -18,10 +19,16 @@ public interface PluginMapper {
     @Mapping(target = "uploadedByName", ignore = true) //provided by PluginMapperDecorator
     @Mapping(target = "zip", ignore=true) //provided by PluginMapperDecorator
     @Mapping(target = "zipContentType" , ignore=true) //provided by PluginMapperDecorator
+    @Mapping(target = "permissions" , ignore=true) //provided by PluginMapperDecorator
+    @Mapping(target = "requires" , ignore=true) //provided by PluginMapperDecorator
     PluginDTO pluginToPluginDTO(Plugin plugin);
 
     @Mapping(source = "uploadedById", target = "uploadedBy")
     Plugin pluginDTOToPlugin(PluginDTO pluginDTO);
+
+    default String jsonArrayToString(JSONArray array) {
+        return array.toString();
+    }
 
     default User userFromId(Long id) {
         if (id == null) {

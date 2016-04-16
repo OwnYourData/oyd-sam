@@ -102,6 +102,13 @@ public class PluginResource {
                 plugin.setVersion(object.optString("version","1.0.0"));
                 plugin.setVersionNumber(object.optInt("build",1));
 
+                if (object.has("requires")) {
+                    plugin.setRequires(object.getJSONArray("requires").toString());
+                }
+                if (object.has("permissions")) {
+                    plugin.setPermissions(object.getJSONArray("permissions").toString());
+                }
+
                 pluginRepository.save(plugin);
 
                 PluginDTO result = pluginMapper.pluginToPluginDTO(plugin);

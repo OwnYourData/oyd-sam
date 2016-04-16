@@ -2,6 +2,7 @@ package eu.ownyourdata.sam.web.rest.dto;
 
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import org.json.JSONArray;
 
 import javax.persistence.Lob;
 import javax.validation.constraints.NotNull;
@@ -37,6 +38,9 @@ public class PluginDTO implements Serializable {
 
     private Integer downloads;
 
+    private JSONArray requires;
+
+    private JSONArray permissions;
 
     private Double ratings;
 
@@ -125,6 +129,22 @@ public class PluginDTO implements Serializable {
 
     public void setUploadedByName(String userLogin) {
         this.uploadedByName = userLogin;
+    }
+
+    public JSONArray getRequires() {
+        return requires;
+    }
+
+    public void setRequires(JSONArray requires) {
+        this.requires = requires;
+    }
+
+    public JSONArray getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(JSONArray permissions) {
+        this.permissions = permissions;
     }
 
     @Override
