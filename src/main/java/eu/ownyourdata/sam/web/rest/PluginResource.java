@@ -4,7 +4,6 @@ import com.codahale.metrics.annotation.Timed;
 import eu.ownyourdata.sam.domain.Plugin;
 import eu.ownyourdata.sam.repository.PluginRepository;
 import eu.ownyourdata.sam.repository.UserRepository;
-import eu.ownyourdata.sam.repository.search.PluginSearchRepository;
 import eu.ownyourdata.sam.web.rest.dto.PluginDTO;
 import eu.ownyourdata.sam.web.rest.dto.PluginUploadDTO;
 import eu.ownyourdata.sam.web.rest.mapper.PluginMapper;
@@ -36,11 +35,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
-
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 
 /**
  * REST controller for managing Plugin.
@@ -59,9 +55,6 @@ public class PluginResource {
 
     @Inject
     private PluginMapper pluginMapper;
-
-    @Inject
-    private PluginSearchRepository pluginSearchRepository;
 
     /**
      * POST  /plugins -> Create a new plugin.
@@ -112,7 +105,6 @@ public class PluginResource {
                 pluginRepository.save(plugin);
 
                 PluginDTO result = pluginMapper.pluginToPluginDTO(plugin);
-                pluginSearchRepository.save(plugin);
                 return ResponseEntity.created(new URI("/api/plugins/" + result.getId()))
                     .headers(HeaderUtil.createEntityCreationAlert("plugin", result.getId().toString()))
                     .body(result);
@@ -190,23 +182,6 @@ public class PluginResource {
     public ResponseEntity<Void> deletePlugin(@PathVariable Long id) {
         log.debug("REST request to delete Plugin : {}", id);
         pluginRepository.delete(id);
-        pluginSearchRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("plugin", id.toString())).build();
-    }
-
-    /**
-     * SEARCH  /_search/plugins/:query -> search for the plugin corresponding
-     * to the query.
-     */
-    @RequestMapping(value = "/_search/plugins/{query:.+}",
-        method = RequestMethod.GET,
-        produces = MediaType.APPLICATION_JSON_VALUE)
-    @Timed
-    public List<PluginDTO> searchPlugins(@PathVariable String query) {
-        log.debug("REST request to search Plugins for query {}", query);
-        return StreamSupport
-            .stream(pluginSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .map(pluginMapper::pluginToPluginDTO)
-            .collect(Collectors.toList());
     }
 }

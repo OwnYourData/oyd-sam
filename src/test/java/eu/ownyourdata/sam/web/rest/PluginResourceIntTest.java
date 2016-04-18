@@ -4,8 +4,7 @@ import eu.ownyourdata.sam.Application;
 import eu.ownyourdata.sam.domain.Plugin;
 import eu.ownyourdata.sam.repository.PluginRepository;
 import eu.ownyourdata.sam.repository.UserRepository;
-import eu.ownyourdata.sam.repository.search.PluginSearchRepository;
-import eu.ownyourdata.sam.web.rest.dto.PluginDTO;
+
 import eu.ownyourdata.sam.web.rest.mapper.PluginMapper;
 
 import org.junit.Before;
@@ -78,9 +77,6 @@ public class PluginResourceIntTest {
     private PluginMapper pluginMapper;
 
     @Inject
-    private PluginSearchRepository pluginSearchRepository;
-
-    @Inject
     private UserRepository userRepository;
 
     @Inject
@@ -97,7 +93,6 @@ public class PluginResourceIntTest {
     public void setup() {
         MockitoAnnotations.initMocks(this);
         PluginResource pluginResource = new PluginResource();
-        ReflectionTestUtils.setField(pluginResource, "pluginSearchRepository", pluginSearchRepository);
         ReflectionTestUtils.setField(pluginResource, "pluginRepository", pluginRepository);
         ReflectionTestUtils.setField(pluginResource, "pluginMapper", pluginMapper);
         this.restPluginMockMvc = MockMvcBuilders.standaloneSetup(pluginResource)

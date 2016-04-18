@@ -4,12 +4,9 @@ import eu.ownyourdata.sam.domain.Authority;
 import eu.ownyourdata.sam.domain.User;
 import eu.ownyourdata.sam.repository.AuthorityRepository;
 import eu.ownyourdata.sam.repository.UserRepository;
-import eu.ownyourdata.sam.repository.search.UserSearchRepository;
 import eu.ownyourdata.sam.security.SecurityUtils;
 import eu.ownyourdata.sam.service.util.RandomUtil;
 import eu.ownyourdata.sam.web.rest.dto.ManagedUserDTO;
-import java.time.ZonedDateTime;
-import java.time.LocalDate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -17,9 +14,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.ZonedDateTime;
 import javax.inject.Inject;
-import java.util.*;
+import java.time.ZonedDateTime;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 /**
  * Service class for managing users.
@@ -37,9 +37,6 @@ public class UserService {
     private UserRepository userRepository;
 
     @Inject
-    private UserSearchRepository userSearchRepository;
-
-    @Inject
     private AuthorityRepository authorityRepository;
 
     public Optional<User> activateRegistration(String key) {
@@ -50,7 +47,6 @@ public class UserService {
                 user.setActivated(true);
                 user.setActivationKey(null);
                 userRepository.save(user);
-                userSearchRepository.save(user);
                 log.debug("Activated user: {}", user);
                 return user;
             });
@@ -106,7 +102,6 @@ public class UserService {
         authorities.add(authority);
         newUser.setAuthorities(authorities);
         userRepository.save(newUser);
-        userSearchRepository.save(newUser);
         log.debug("Created Information for User: {}", newUser);
         return newUser;
     }
@@ -135,7 +130,6 @@ public class UserService {
         user.setResetDate(ZonedDateTime.now());
         user.setActivated(true);
         userRepository.save(user);
-        userSearchRepository.save(user);
         log.debug("Created Information for User: {}", user);
         return user;
     }
@@ -147,7 +141,6 @@ public class UserService {
             u.setEmail(email);
             u.setLangKey(langKey);
             userRepository.save(u);
-            userSearchRepository.save(u);
             log.debug("Changed Information for User: {}", u);
         });
     }
@@ -155,7 +148,6 @@ public class UserService {
     public void deleteUserInformation(String login) {
         userRepository.findOneByLogin(login).ifPresent(u -> {
             userRepository.delete(u);
-            userSearchRepository.delete(u);
             log.debug("Deleted User: {}", u);
         });
     }
@@ -205,7 +197,6 @@ public class UserService {
         for (User user : users) {
             log.debug("Deleting not activated user {}", user.getLogin());
             userRepository.delete(user);
-            userSearchRepository.delete(user);
         }
     }
 }

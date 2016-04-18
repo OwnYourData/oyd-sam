@@ -2,7 +2,6 @@ package eu.ownyourdata.sam.domain;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -15,7 +14,6 @@ import java.util.Objects;
 @Entity
 @Table(name = "plugin")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@Document(indexName = "plugin")
 public class Plugin implements Serializable {
 
     @Id

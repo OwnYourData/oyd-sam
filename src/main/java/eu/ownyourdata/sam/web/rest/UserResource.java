@@ -5,12 +5,10 @@ import eu.ownyourdata.sam.domain.Authority;
 import eu.ownyourdata.sam.domain.User;
 import eu.ownyourdata.sam.repository.AuthorityRepository;
 import eu.ownyourdata.sam.repository.UserRepository;
-import eu.ownyourdata.sam.repository.search.UserSearchRepository;
 import eu.ownyourdata.sam.security.AuthoritiesConstants;
 import eu.ownyourdata.sam.service.MailService;
 import eu.ownyourdata.sam.service.UserService;
 import eu.ownyourdata.sam.web.rest.dto.ManagedUserDTO;
-import eu.ownyourdata.sam.web.rest.dto.UserDTO;
 import eu.ownyourdata.sam.web.rest.util.HeaderUtil;
 import eu.ownyourdata.sam.web.rest.util.PaginationUtil;
 import org.slf4j.Logger;
@@ -26,14 +24,14 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import java.net.URI;
 import java.net.URISyntaxException;
-import javax.servlet.http.HttpServletRequest;
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * REST controller for managing users.
@@ -77,9 +75,6 @@ public class UserResource {
 
     @Inject
     private UserService userService;
-
-    @Inject
-    private UserSearchRepository userSearchRepository;
 
     /**
      * POST  /users -> Creates a new user.
@@ -205,19 +200,5 @@ public class UserResource {
         log.debug("REST request to delete User: {}", login);
         userService.deleteUserInformation(login);
         return ResponseEntity.ok().headers(HeaderUtil.createAlert( "user-management.deleted", login)).build();
-    }
-
-    /**
-     * SEARCH  /_search/users/:query -> search for the User corresponding
-     * to the query.
-     */
-    @RequestMapping(value = "/_search/users/{query}",
-        method = RequestMethod.GET,
-        produces = MediaType.APPLICATION_JSON_VALUE)
-    @Timed
-    public List<User> search(@PathVariable String query) {
-        return StreamSupport
-            .stream(userSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .collect(Collectors.toList());
     }
 }
