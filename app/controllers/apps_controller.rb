@@ -1,7 +1,7 @@
 class AppsController < ApplicationController
   def index
     apps = App.all
-    paginate json: apps, per_page: 3
+    paginate json: apps, per_page: 10
 
     # bank = {"id" => 1,
     # 	    "identifier" => "eu.ownyourdata.bank",
