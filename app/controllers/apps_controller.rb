@@ -34,4 +34,9 @@ class AppsController < ApplicationController
     #   }
     # end
   end
+
+  def show
+    app = App.find(params[:id])
+    render json: app.to_json
+  end
 end
