@@ -11,21 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161024080800) do
+ActiveRecord::Schema.define(version: 20161031110032) do
 
   create_table "apps", force: :cascade do |t|
     t.string   "identifier"
     t.string   "version"
     t.integer  "versionNumber"
-    t.integer  "downloads"
     t.string   "description"
-    t.text     "requires"
-    t.integer  "ratings"
-    t.integer  "uploadedById"
-    t.string   "uploadedByName"
-    t.text     "permissions"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.text     "permissionStr"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.string   "name"
+    t.string   "appUrl"
+    t.string   "mobileUrl"
   end
 
 end

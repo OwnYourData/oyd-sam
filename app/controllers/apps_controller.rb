@@ -1,6 +1,17 @@
 class AppsController < ApplicationController
+  def processApp(app)
+        app["downloads"] = 0
+        app["requires"] = []
+        app["ratings"] = 0
+        app["uploadedById"] = 0
+        app["uploadedByName"] = ""
+        app["premissions"] = app["permissionStr"].split(",").map(&:strip).reject(&:empty?)
+        app.except("permissionStr")
+  end
+
   def index
-    apps = App.all
+    apps = App.all.to_a.map(&:serializable_hash)
+    apps.each{ |app| processApp(app) }
     paginate json: apps, per_page: 10
 
     # bank = {"id" => 1,
@@ -36,7 +47,8 @@ class AppsController < ApplicationController
   end
 
   def show
-    app = App.find(params[:id])
+    app = App.find(params[:id]).serializable_hash
+    app = processApp(app)
     render json: app.to_json
   end
 end
