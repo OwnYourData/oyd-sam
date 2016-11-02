@@ -7,14 +7,14 @@ class AppsController < ApplicationController
         app["uploadedByName"] = ""
         app["permissions"] = app["permissionStr"].split(",").map(&:strip).reject(&:empty?)
         app["url"] = app["appUrl"]
-        app = app.except("permissionStr").except("appUrl")
-        app
+        app.except("permissionStr").except("appUrl")
   end
 
   def index
     apps = App.all.to_a.map(&:serializable_hash)
-    apps.each{ |app| processApp(app) }
-    paginate json: apps, per_page: 10
+    allApps = []
+    apps.each{ |app| allApps << processApp(app) }
+    paginate json: allApps, per_page: 20
 
     # bank = {"id" => 1,
     # 	    "identifier" => "eu.ownyourdata.bank",
