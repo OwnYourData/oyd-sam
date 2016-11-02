@@ -5,7 +5,7 @@ class AppsController < ApplicationController
         app["ratings"] = 0
         app["uploadedById"] = 0
         app["uploadedByName"] = ""
-        app["premissions"] = app["permissionStr"].split(",").map(&:strip).reject(&:empty?)
+        app["permissions"] = app["permissionStr"].split(",").map(&:strip).reject(&:empty?)
         app.except("permissionStr")
   end
 
