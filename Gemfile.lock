@@ -114,6 +114,7 @@ GEM
       mustermann (= 0.4.0)
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
+    pg (0.18.2)
     rack (1.6.4)
     rack-accept (0.4.5)
       rack (>= 0.4)
@@ -207,6 +208,7 @@ DEPENDENCIES
   jbuilder (= 2.2.3)
   jquery-rails (= 4.0.3)
   kaminari
+  pg
   rails (= 4.2.5)
   rails-api
   sass-rails (= 5.0.2)
