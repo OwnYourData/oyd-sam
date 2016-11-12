@@ -26,5 +26,5 @@ production:
   database: sam
   host: localhost
   pool: 5
-  username: data
+  username: postgres
   password: data
