@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161031110032) do
+ActiveRecord::Schema.define(version: 20161121101131) do
 
   create_table "apps", force: :cascade do |t|
     t.string   "identifier"
@@ -24,6 +24,8 @@ ActiveRecord::Schema.define(version: 20161031110032) do
     t.string   "name"
     t.string   "appUrl"
     t.string   "mobileUrl"
+    t.string   "picture"
+    t.string   "infoUrl"
   end
 
 end
