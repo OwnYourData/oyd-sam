@@ -7,8 +7,9 @@ class AppsController < ApplicationController
         app["uploadedByName"] = ""
         app["permissions"] = app["permissionStr"].split(",").map(&:strip).reject(&:empty?)
         app["url"] = app["appUrl"]
+        app["mobileurl"] = app["mobileUrl"]
         app["infourl"] = app["infoUrl"]
-        app.except("permissionStr").except("appUrl").except("infoUrl")
+        app.except("permissionStr").except("appUrl").except("mobileUrl").except("infoUrl")
   end
 
   def index
