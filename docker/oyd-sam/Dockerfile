@@ -18,6 +18,8 @@ RUN git clone https://github.com/OwnYourData/oyd-sam.git --branch sam-rails \
 	&& gem install sqlite3 -v '1.3.9' \
 	&& gem install multi_json -v '1.12.1' \
 	&& gem install therubyracer -v '0.12.2' \
+	&& gem install activesupport -v '4.2.5' \
+	&& gem install axiom-types -v '0.1.1' \
 	&& bundle install
 
 RUN cd /oyd-sam \
