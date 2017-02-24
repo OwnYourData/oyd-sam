@@ -6,11 +6,13 @@ RUN apt-get update \
 		postgresql-client postgresql-contrib \
 	&& rm -rf /var/lib/apt/lists/*
 
-RUN git clone https://github.com/OwnYourData/oyd-sam.git --branch sam-rails \
-	&& cd oyd-sam
+RUN git clone https://github.com/OwnYourData/oyd-sam.git --branch sam-rails
 
 RUN cd /oyd-sam \
-	&& gem install nokogiri
+	&& gem install nokogiri -v '1.6.7.2' \
+	&& gem install pg -v '0.18.2' \
+	&& gem install rdoc -v '4.2.2' \
+	&& gem install sdoc -v '0.4.0'
 
 RUN cd /oyd-sam \
 	&& bundle install
