@@ -25,7 +25,7 @@ RUN git clone https://github.com/OwnYourData/oyd-sam.git --branch sam-rails \
 
 RUN cd /oyd-sam \
 	&& rake rails:update:bin \
-	&& su postgres -c "initdb -D /var/lib/postgresql/data" 
+	&& su postgres -c "/usr/lib/postgresql/9.4/bin/initdb -D /var/lib/postgresql/data" 
 
 COPY script/run.sh /bin/run.sh
 RUN chmod +x /bin/run.sh
