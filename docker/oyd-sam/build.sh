@@ -89,5 +89,5 @@ fi
 if $VAULT_UPDATE; then
 	docker stop $APP_NAME
 	docker rm $(docker ps -q -f status=exited)
-	docker run --name $APP_NAME -d --expose 3000 -e VIRTUAL_HOST=sam.datentresor.org -e VIRTUAL_PORT=3000 $IMAGE
+	docker run --name $APP_NAME -d --expose 3000 -e VIRTUAL_HOST=$APP_NAME.datentresor.org -e VIRTUAL_PORT=3000 $IMAGE
 fi
