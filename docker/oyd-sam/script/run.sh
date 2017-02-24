@@ -14,6 +14,8 @@ cd /oyd-sam
 RAILS_ENV=production rake db:create
 RAILS_ENV=production rake db:migrate
 rails r -e production /oyd-sam/script/bank.rb
+rails r -e production /oyd-sam/script/allergy.rb
+rails r -e production /oyd-sam/script/room.rb
 rails server -e production -b 0.0.0.0
 
 # keep the stdin
