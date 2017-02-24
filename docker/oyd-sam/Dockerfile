@@ -14,7 +14,10 @@ RUN cd /oyd-sam \
 	&& gem install rdoc -v '4.2.2' \
 	&& gem install sdoc -v '0.4.0' \
 	&& gem install concurrent-ruby -v '1.0.2' \
-	&& gem install equalizer -v '0.0.11'
+	&& gem install equalizer -v '0.0.11' \
+	&& gem install hashie -v '3.4.6' \
+	&& gem install sqlite3 -v '1.3.9' \
+	&& gem install multi_json -v '1.12.1'
 
 RUN cd /oyd-sam \
 	&& bundle install
