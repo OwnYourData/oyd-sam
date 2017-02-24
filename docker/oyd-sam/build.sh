@@ -44,6 +44,7 @@ while [ $# -gt 0 ]; do
             echo " "
             echo "Beispiele:"
             echo " ./build.sh --clean --dockerhub --vault --apps"
+            echo " ./build.sh --name=beta-sam --vault"
             if [ "${BASH_SOURCE[0]}" != "${0}" ]; then
                 return 1
             else
