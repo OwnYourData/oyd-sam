@@ -20,6 +20,7 @@ RUN git clone https://github.com/OwnYourData/oyd-sam.git --branch sam-rails \
 	&& gem install therubyracer -v '0.12.2' \
 	&& gem install activesupport -v '4.2.5' \
 	&& gem install axiom-types -v '0.1.1' \
+	&& gem install rake - v '11.3.0' \
 	&& bundle install
 
 RUN cd /oyd-sam \
