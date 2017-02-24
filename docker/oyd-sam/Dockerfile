@@ -8,8 +8,9 @@ RUN apt-get update \
 
 RUN git clone https://github.com/OwnYourData/oyd-sam.git --branch sam-rails \
 	&& cd oyd-sam \
-	&& bundle install \
-	&& rake rails:update:bin \
+	&& bundle install
+
+RUN rake rails:update:bin \
 	&& su postgres -c "initdb -D /var/lib/postgresql/data" 
 
 COPY script/run.sh /bin/run.sh
