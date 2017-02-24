@@ -12,7 +12,9 @@ RUN cd /oyd-sam \
 	&& gem install nokogiri -v '1.6.7.2' \
 	&& gem install pg -v '0.18.2' \
 	&& gem install rdoc -v '4.2.2' \
-	&& gem install sdoc -v '0.4.0'
+	&& gem install sdoc -v '0.4.0' \
+	&& gem install concurrent-ruby -v '1.0.2' \
+	&& gem install equalizer -v '0.0.11'
 
 RUN cd /oyd-sam \
 	&& bundle install
