@@ -16,6 +16,9 @@ RAILS_ENV=production rake db:migrate
 rails r -e production /oyd-sam/script/bank.rb
 rails r -e production /oyd-sam/script/allergy.rb
 rails r -e production /oyd-sam/script/room.rb
+rails r -e production /oyd-sam/script/scheduler.rb
+rails r -e production /oyd-sam/script/webhistory.rb
+rails r -e production /oyd-sam/script/collect.rb
 rails server -e production -b 0.0.0.0
 
 # keep the stdin
