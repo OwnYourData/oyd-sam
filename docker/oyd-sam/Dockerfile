@@ -7,7 +7,12 @@ RUN apt-get update \
 	&& rm -rf /var/lib/apt/lists/*
 
 RUN git clone https://github.com/OwnYourData/oyd-sam.git --branch sam-rails \
-	&& cd oyd-sam \
+	&& cd oyd-sam
+
+RUN cd /oyd-sam \
+	&& gem install nokogiri
+
+RUN cd /oyd-sam \
 	&& bundle install
 
 RUN rake rails:update:bin \
