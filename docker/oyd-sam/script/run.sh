@@ -2,6 +2,7 @@
 
 # install gems
 # loop according to http://www.zhuwu.me/blog/posts/solve-gem-installation-timeout-when-building-docker-image
+cd /oyd-sam
 N=0
 until [ ${N} -ge 5 ]
 do
