@@ -1,6 +1,8 @@
 #!/bin/bash
 
 APP="oyd-sam"
+APP_NAME="sam"
+IMAGE="oydeu/$APP"
 
 # read commandline options
 BUILD_CLEAN=false
@@ -15,6 +17,9 @@ while [ $# -gt 0 ]; do
         --dockerhub*)
             DOCKER_UPDATE=true
             ;;
+        --name=*)
+            APP_NAME="${1#*=}"
+            ;;
         --refresh*)
             REFRESH=true
             ;;
@@ -27,6 +32,10 @@ while [ $# -gt 0 ]; do
             echo " "
             echo "Optionale Argumente:"
             echo "  --clean           baut neues Docker-Image (--no-cache, alles neu kompilieren)"
+            echo "  --dockerhub       pusht Docker-Image auf hub.docker.com"
+            echo "  --refresh         aktualisiert docker Verzeichnis von Github"
+            echo "                    (Achtung: löscht alle vorhandenen Zwischenschritte)"
+            echo "  --vault           startet Docker Container auf datentresor.org"
             echo " "
             echo "Beispiele:"
             echo " ./build.sh --clean --dockerhub --vault"
@@ -51,7 +60,7 @@ if $REFRESH; then
     if [ "${BASH_SOURCE[0]}" != "${0}" ]; then
         cd ~/docker
         rm -rf $APP
-        svn checkout https://github.com/OwnYourData/oyd-pia/trunk/docker/$APP
+        svn checkout https://github.com/OwnYourData/oyd-sam/branches/sam-rails/docker/$APP
         echo "refreshed"
         cd ~/docker/$APP
         return
@@ -59,4 +68,20 @@ if $REFRESH; then
         echo "you need to source the script for refresh"
         exit
     fi
+fi
+
+if $BUILD_CLEAN; then
+    docker build --no-cache -t $IMAGE .
+else
+	docker build -t $IMAGE .
+fi
+
+if $DOCKER_UPDATE; then
+    docker push $IMAGE
+fi
+
+if $VAULT_UPDATE; then
+	docker stop $APP_NAME
+	docker rm $(docker ps -q -f status=exited)
+	docker run --name $APP_NAME -d --expose 3000 -e VIRTUAL_HOST=sam.datentresor.org -e VIRTUAL_PORT=3000 $IMAGE
 fi
