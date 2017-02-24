@@ -13,6 +13,7 @@ echo "starting SAM"
 cd /oyd-sam
 RAILS_ENV=production rake db:create
 RAILS_ENV=production rake db:migrate
+rails r /oyd-sam/script/bank.rb
 rails server -e production -b 0.0.0.0
 
 # keep the stdin

@@ -30,6 +30,7 @@ RUN cd /oyd-sam \
 
 COPY script/run.sh /bin/run.sh
 COPY script/*.sql /oyd-sam/script/
+COPY script/*.rb /oyd-sam/script/
 
 RUN chmod +x /bin/run.sh
 
