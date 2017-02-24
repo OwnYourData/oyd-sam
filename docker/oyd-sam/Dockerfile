@@ -1,6 +1,8 @@
 FROM ruby:2.3
 MAINTAINER "Christoph Fabianek" christoph@ownyourdata.eu
 
+ARG APP_INSTALL=false
+
 RUN apt-get update \
 	&& apt-get install -y --no-install-recommends \
 		postgresql-client postgresql-contrib \

@@ -5,12 +5,16 @@ APP_NAME="sam"
 IMAGE="oydeu/$APP"
 
 # read commandline options
+APP_INSTALL=false
 BUILD_CLEAN=false
 DOCKER_UPDATE=false
 REFRESH=false
 VAULT_UPDATE=false
 while [ $# -gt 0 ]; do
     case "$1" in
+        --apps*)
+            APP_INSTALL=true
+            ;;
         --clean*)
             BUILD_CLEAN=true
             ;;
@@ -31,6 +35,7 @@ while [ $# -gt 0 ]; do
             echo "erzeugt und startet OwnYourData SAM"
             echo " "
             echo "Optionale Argumente:"
+            echo "  --apps            initialisiert die Datenbank mit vorhanden OwnYourData Apps"
             echo "  --clean           baut neues Docker-Image (--no-cache, alles neu kompilieren)"
             echo "  --dockerhub       pusht Docker-Image auf hub.docker.com"
             echo "  --refresh         aktualisiert docker Verzeichnis von Github"
@@ -38,7 +43,7 @@ while [ $# -gt 0 ]; do
             echo "  --vault           startet Docker Container auf datentresor.org"
             echo " "
             echo "Beispiele:"
-            echo " ./build.sh --clean --dockerhub --vault"
+            echo " ./build.sh --clean --dockerhub --vault --apps"
             if [ "${BASH_SOURCE[0]}" != "${0}" ]; then
                 return 1
             else
@@ -71,9 +76,9 @@ if $REFRESH; then
 fi
 
 if $BUILD_CLEAN; then
-    docker build --no-cache -t $IMAGE .
+    docker build --no-cache -t $IMAGE --build-arg APP_INSTALL=$APP_INSTALL .
 else
-	docker build -t $IMAGE .
+	docker build -t $IMAGE --build-arg APP_INSTALL=$APP_INSTALL .
 fi
 
 if $DOCKER_UPDATE; then
