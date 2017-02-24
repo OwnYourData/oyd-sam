@@ -25,9 +25,12 @@ RUN git clone https://github.com/OwnYourData/oyd-sam.git --branch sam-rails \
 
 RUN cd /oyd-sam \
 	&& rake rails:update:bin \
-	&& su postgres -c "/usr/lib/postgresql/9.4/bin/initdb -D /var/lib/postgresql/data" 
+	&& su postgres -c "/usr/lib/postgresql/9.4/bin/initdb -D /var/lib/postgresql/data" \
+	&& mkdir -p /oyd-sam/script
 
 COPY script/run.sh /bin/run.sh
+COPY script/*.sql /oyd-sam/script/
+
 RUN chmod +x /bin/run.sh
 
 EXPOSE 3000

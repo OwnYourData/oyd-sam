@@ -7,10 +7,12 @@ sleep 5
 
 echo "creating DB"
 su postgres -c "/usr/lib/postgresql/9.4/bin/psql --command \"ALTER USER postgres WITH SUPERUSER PASSWORD 'postgres';\""
-su postgres -c "/usr/lib/postgresql/9.4/bin/createdb postgres"
+su postgres -c "/usr/lib/postgresql/9.4/bin/psql -d postgres -a -f /oyd-sam/script/template.sql"
 
 echo "starting SAM"
 cd /oyd-sam
+RAILS_ENV=production rake db:create
+RAILS_ENV=production rake db:migrate
 rails server -e production -b 0.0.0.0
 
 # keep the stdin
