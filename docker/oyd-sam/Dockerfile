@@ -10,6 +10,8 @@ RUN apt-get update \
 
 RUN git clone https://github.com/OwnYourData/oyd-sam.git --branch sam-rails \
 	&& cd /oyd-sam \
+    && N=0 \
+    && until [ ${N} -ge 5 ]; do bundle install  && break; echo 'Try bundle again ...'; N=$[${N}+1]; sleep 1; done \
 	&& su postgres -c "/usr/lib/postgresql/9.4/bin/initdb -D /var/lib/postgresql/data" \
 	&& mkdir -p /oyd-sam/script
 

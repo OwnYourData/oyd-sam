@@ -1,16 +1,7 @@
 #!/bin/bash
 
-# install gems
-# loop according to http://www.zhuwu.me/blog/posts/solve-gem-installation-timeout-when-building-docker-image
+# rails setup
 cd /oyd-sam
-N=0
-until [ ${N} -ge 5 ]
-do
-  bundle install  && break
-  echo 'Try bundle again ...'
-  N=$[${N}+1]
-  sleep 1
-done
 rake rails:update:bin
 
 #start postgreSQL
