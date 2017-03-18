@@ -18,16 +18,18 @@ cd /oyd-sam
 RAILS_ENV=production rake db:create
 RAILS_ENV=production rake db:migrate
 if $APP_INSTALL; then
-	rails r -e production /oyd-sam/script/bank.rb
 	rails r -e production /oyd-sam/script/allergy.rb
-	rails r -e production /oyd-sam/script/room.rb
-	rails r -e production /oyd-sam/script/scheduler.rb
-	rails r -e production /oyd-sam/script/webhistory.rb
+	rails r -e production /oyd-sam/script/backup.rb
+	rails r -e production /oyd-sam/script/bank.rb
 	rails r -e production /oyd-sam/script/collect.rb
+	rails r -e production /oyd-sam/script/energy.rb
 	rails r -e production /oyd-sam/script/fitbit.rb
 	rails r -e production /oyd-sam/script/goal.rb
 	rails r -e production /oyd-sam/script/quality.rb
 	rails r -e production /oyd-sam/script/relationship.rb
+	rails r -e production /oyd-sam/script/room.rb
+	rails r -e production /oyd-sam/script/scheduler.rb
+	rails r -e production /oyd-sam/script/webhistory.rb
 fi
 rails server -e production -b 0.0.0.0
 
