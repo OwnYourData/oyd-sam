@@ -1,8 +1,11 @@
 # <img src="https://github.com/OwnYourData/oyd-sam/raw/master/app/assets/images/logo_grey.png" width="92"> OwnYourData App Anbieter    
-description    
+Zur einfachen Installation von Apps können Manifeste bei einem App-Anbieter gespeichert werden. Der Datentresor zeigt die verfügbaren Manifeste auf der Startseite an, und mit einem Klick kann die entsprechende App im Datentresor hinzugefügt werden. Beim Einrichten eines Datentresors wird der OwnYourData App Store (https://sam.datentresor.org) eingerichtet und listet alle Apps auf.    
+
+*Anmerkung:* der ursprüngliche Name für App-Anbieter war SAM (Store for AlgorithMs)
 
 ## Installation
-text    
+Ein App-Anbieter kann mit deinem Docker Containter gestartet werden: `docker run -p 8080:8080 oydeu/oyd-sam`    
+Download und Informationen auf Dockerhub: https://hub.docker.com/r/oydeu/oyd-sam/
 
 ## Verbessere den OwnYourData App Anbieter
 
