@@ -25,10 +25,12 @@ if $APP_INSTALL; then
 	rails r -e production /oyd-sam/script/energy.rb
 	rails r -e production /oyd-sam/script/fitbit.rb
 	rails r -e production /oyd-sam/script/goal.rb
+	rails r -e production /oyd-sam/script/gonimo.rb
 	rails r -e production /oyd-sam/script/quality.rb
 	rails r -e production /oyd-sam/script/relationship.rb
 	rails r -e production /oyd-sam/script/room.rb
 	rails r -e production /oyd-sam/script/scheduler.rb
+	rails r -e production /oyd-sam/script/survey.rb
 	rails r -e production /oyd-sam/script/webhistory.rb
 fi
 rails server -e production -b 0.0.0.0
